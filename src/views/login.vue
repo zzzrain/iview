@@ -1,6 +1,6 @@
 <template>
     <div class="login-con">
-        <Card icon="log-in" title="欢迎登录" :bordered="false">
+        <Card icon="log-in" title="欢迎登录">
             <div class="form-con">
                 <LoginForm></LoginForm>
             </div>
@@ -14,7 +14,7 @@
         name: "login",
         components: {
             LoginForm
-        }
+        },
     }
 </script>
 

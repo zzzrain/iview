@@ -1,28 +1,70 @@
 <template>
-    <Form ref="loginForm" >
-        <FormItem prop="userName">
-            <Input placeholder="请输入用户名">
-        <span slot="prepend">
-          <Icon :size="16" type="ios-person"></Icon>
-        </span>
+    <Form ref="loginForm" :model="loginForm" :rules="rules">
+        <Form-item prop="username">
+            <Input v-model="loginForm.username" placeholder="请输入用户名">
+            <span slot="prepend">
+              <Icon :size="16" type="ios-person"></Icon>
+            </span>
             </Input>
-        </FormItem>
-        <FormItem prop="password">
-            <Input type="password" placeholder="请输入密码">
-        <span slot="prepend">
-          <Icon :size="14" type="md-lock"></Icon>
-        </span>
+        </Form-item>
+        <Form-item prop="password">
+            <Input v-model="loginForm.password" type="password" placeholder="请输入密码">
+            <span slot="prepend">
+              <Icon :size="14" type="md-lock"></Icon>
+            </span>
             </Input>
-        </FormItem>
-        <FormItem>
-            <Button type="primary" long>登录</Button>
-        </FormItem>
+        </Form-item>
+        <Form-item>
+            <Button type="primary" @click="handleSubmit" long>登录</Button>
+        </Form-item>
     </Form>
 </template>
 
 <script>
     export default {
-        name: "loginForm"
+        name: "loginForm",
+        data () {
+            const validateUsername = (rule, value, callback) => {
+                if (!value) {
+                    callback(new Error('请输入用户名'));
+                } else {
+                    callback();
+                }
+            };
+            const validatePassword = (rule, value, callback) => {
+                if (!value) {
+                    callback(new Error('请输入密码'));
+                } else {
+                    callback();
+                }
+            };
+
+            return {
+                loginForm: {
+                    username: 'super_admin',
+                    password: '',
+                },
+                rules: {
+                    username: [
+                        { validator: validateUsername, trigger: 'blur' }
+                    ],
+                    password: [
+                        { validator: validatePassword, trigger: 'blur' }
+                    ]
+                }
+            }
+        },
+        methods: {
+            handleSubmit () {
+                this.$refs.loginForm.validate((valid) => {
+                    if (valid) {
+                        this.$Message.success('提交成功!');
+                    } else {
+                        this.$Message.error('表单验证失败!');
+                    }
+                })
+            }
+        },
     }
 </script>
 
