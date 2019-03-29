@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import iView from 'iview';
+import axios from 'axios';
 import VueRouter from 'vue-router';
 import Routers from './router';
 import Util from './libs/util';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 
+Vue.prototype.$axios = axios;
 Vue.use(VueRouter);
 Vue.use(iView);
 

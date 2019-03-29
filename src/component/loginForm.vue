@@ -58,6 +58,14 @@
             handleSubmit () {
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
+                        this.$axios
+                            .post('/api/lms/admin/user/login', {
+                                account: this.loginForm.username,
+                                userPwd: this.loginForm.password,
+                                staticCode: 1234
+                            })
+                            .then(response => console.log(response))
+                            .catch(error => console.log(error));
                         this.$Message.success('提交成功!');
                     } else {
                         this.$Message.error('表单验证失败!');
